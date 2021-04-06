@@ -1,6 +1,6 @@
 # Contact Organizer Backend
 
-This is the backend for my small cms application.
+This is the backend for my small contact organizer application.
 
 ### Reference Documentation
 
