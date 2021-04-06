@@ -1,4 +1,4 @@
-# CMS Backend
+# Contact Organizer Backend
 
 This is the backend for my small cms application.
 
