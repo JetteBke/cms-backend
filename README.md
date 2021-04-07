@@ -2,6 +2,19 @@
 
 This is the backend for my small contact organizer application.
 
+## Prerequisites
+
+You need to have `docker` installed.
+
+## Run locally
+
+`docker build -t corg-be:local .` 
+to create the image and then
+`docker run -p 8080:8080 corg:be`
+
+to run it locally.
+
+
 ### Reference Documentation
 
 For further reference, please consider the following sections:
