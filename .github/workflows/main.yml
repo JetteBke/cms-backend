@@ -36,11 +36,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: mkdir -p build/libs/
+#      - run: mkdir -p build/libs/
       - uses: actions/download-artifact@v2
         with:
           name: cms-backend.jar
-          path: build/libs/
+#          path: build/libs/
       - name: 'Echo download path'
         run: echo ${{steps.download.outputs.download-path}}
       - name: Push to Docker Hub
