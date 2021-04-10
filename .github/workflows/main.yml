@@ -28,7 +28,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: cms-backend.jar
-          path: build/libs/*.jar
+          path: build/libs/
 #      - run: mkdir -p path/to/artifact
 #
 #      - run: echo hello > path/to/artifact/world.txt
@@ -45,15 +45,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 #      - uses: actions/checkout@v2
-      - run: mkdir -p build/libs/
+      - run: mkdir -p ./build/libs
       - uses: actions/download-artifact@v2
         with:
-          name: my-artifact
-          path: build/libs/
+          name: cms-backend.jar
+          path: ./build/libs/
       - name: Display structure of downloaded files
         run: ls -R
-      - name: 'Echo download path'
-        run: echo ${{steps.download.outputs.download-path}}
+#      - name: 'Echo download path'
+#        run: echo ${{steps.download.outputs.download-path}}
 #      - name: Push to Docker Hub
 #        uses: docker/build-push-action@v1
 #        with:
