@@ -1,5 +1,8 @@
 FROM openjdk:11
 
-COPY build/libs/*.jar app.jar
+RUN ls -ll
+RUN ls -ll | grep backend
 
-ENTRYPOINT ["java","-jar","/app.jar"]
+#COPY build/libs/*.jar app.jar
+
+#ENTRYPOINT ["java","-jar","/app.jar"]
