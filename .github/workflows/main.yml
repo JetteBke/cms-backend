@@ -25,14 +25,21 @@ jobs:
       - uses: eskatos/gradle-command-action@v1
         with:
           arguments: build
+      - uses: actions/upload-artifact@v2
+        with:
+          name: cms-backend.jar
+          path: build/libs/
 
   push_to_registry:
     needs: build
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
     steps:
-      - name: Check out the repo
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+      - uses: actions/download-artifact@v2
+        with:
+          name: cms-backend.jar
+          path: build/libs/
       - name: Push to Docker Hub
         uses: docker/build-push-action@v2
         with:
