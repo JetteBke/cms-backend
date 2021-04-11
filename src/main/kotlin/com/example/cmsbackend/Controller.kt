@@ -1,5 +1,7 @@
 package com.example.cmsbackend
 
+import com.example.cmsbackend.db.ContactTable
+import com.google.gson.Gson
 import org.springframework.hateoas.MediaTypes
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
@@ -15,6 +17,7 @@ class AppsController(
     @ResponseBody
     fun helloWorld(): ResponseEntity<Any?> {
 
-        return ResponseEntity("Hello World", HttpStatus.OK)
+        val list = ContactTable.getAll()
+        return ResponseEntity(Gson().toJson(list), HttpStatus.OK)
     }
 }

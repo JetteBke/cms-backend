@@ -4,16 +4,33 @@ This is the backend for my small contact organizer application.
 
 ## Prerequisites
 
-You need to have `docker` installed.
+You need to have `docker` and `postgres` installed.
 
 ## Run locally
 
-`docker build -t corg-be:local .` 
-to create the image and then
-`docker run -p 8080:8080 corg:be`
+(This is a workaround until I figure out how to create db in a different way)
 
-to run it locally.
+First you need start a database with
 
+```
+docker run -p 5432:5432 -e POSTGRES_PASSWORD=password postgres
+```
+
+Then connect to it via
+
+```
+psql -U postgres -h localhost postgres
+```
+
+Create a database named `cms` with 
+```aidl
+Create database cms;
+```
+After that you can run the app with `./gradlew bootRun` from the root directory.
+
+There is some fake data so to try if the app is working properly you can call `localhost:8080/hello` and it should return a list with two entries.
+
+____________________
 
 ### Reference Documentation
 
