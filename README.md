@@ -4,13 +4,15 @@ This is the backend for my small contact organizer application.
 
 ## Prerequisites
 
-You need to have `docker` and `postgres` installed.
+You need to have `docker`, `docker compose` and `postgres` installed.
 
 ## Run locally
 
-(This is a workaround until I figure out how to create db in a different way)
+Run `docker-compose up` in the root directory. (currently not working)
 
-First you need start a database with
+(This is a workaround until I figure out how to create db in a different way):
+
+First you need to start a database with
 
 ```
 docker run -p 5432:5432 -e POSTGRES_PASSWORD=password postgres

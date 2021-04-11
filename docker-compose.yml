@@ -1,0 +1,21 @@
+version: '2'
+
+services:
+  corg-frontend:
+    image: "corg-fe:1.1"
+    ports:
+      - "3000:3000" # localhost-port:container-port
+  corg-backend:
+    image: "corg-be:local"
+    ports:
+      - "8080:8080"
+# WIP: This is currently failing because the volume doesn't work (db is not created).
+  db:
+    image: 'postgres:13.2-alpine'
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    ports:
+    - "5432:5432"
+    volumes:
+      - ./db/dev/databases.sql:/docker-entrypoint-initdb.d/1-dev-database.sql
