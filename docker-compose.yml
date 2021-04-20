@@ -1,21 +1,29 @@
-version: '2'
+version: '3.9'
 
 services:
   corg-frontend:
-    image: "corg-fe:1.1"
+    image: "cms-fe:1.4"
     ports:
       - "3000:3000" # localhost-port:container-port
-  corg-backend:
-    image: "corg-be:local"
-    ports:
-      - "8080:8080"
-# WIP: This is currently failing because the volume doesn't work (db is not created).
   db:
     image: 'postgres:13.2-alpine'
+    container_name: database
     environment:
+      - POSTGRES_DB=cms
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
     ports:
     - "5432:5432"
-    volumes:
-      - ./db/dev/databases.sql:/docker-entrypoint-initdb.d/1-dev-database.sql
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "postgres"]
+      start_period: "5s"
+      interval: "5s"
+      retries: 5
+    restart: "always"
+  corg-backend:
+    image: "cms-be:1.9.3"
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
