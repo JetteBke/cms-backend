@@ -15,7 +15,7 @@ class CmsBackendApplication
 
 fun main(args: Array<String>) {
 
-    val dbUrl = "jdbc:postgresql://localhost:5432/cms"
+    val dbUrl = "jdbc:postgresql://db:5432/cms"
     val dbUser = "postgres"
     val dbPass = "password"
     Database.connect(dbUrl, driver = "org.postgresql.Driver", user = dbUser, password = dbPass)
