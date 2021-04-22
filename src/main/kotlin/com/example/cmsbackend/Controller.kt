@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.*
 @RestController
 class AppsController(
 ) {
-    @GetMapping("/hello", produces = [MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE])
+    @GetMapping("/cms/api/contacts", produces = [MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE])
     @ResponseBody
-    fun helloWorld(): ResponseEntity<Any?> {
+    fun getContacts(): ResponseEntity<Any?> {
 
         val list = ContactTable.getAll()
         return ResponseEntity(Gson().toJson(list), HttpStatus.OK)

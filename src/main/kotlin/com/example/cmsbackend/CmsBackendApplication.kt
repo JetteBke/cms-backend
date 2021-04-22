@@ -18,22 +18,21 @@ fun main(args: Array<String>) {
     val dbUrl = "jdbc:postgresql://db:5432/cms"
     val dbUser = "postgres"
     val dbPass = "password"
-    Database.connect(dbUrl, driver = "org.postgresql.Driver", user = dbUser, password = dbPass)
+    val dbDriver = "org.postgresql.Driver"
+    Database.connect(dbUrl, driver = dbDriver, user = dbUser, password = dbPass)
 
     transaction {
         addLogger(StdOutSqlLogger)
 
-        SchemaUtils.drop(ContactTable)
-        SchemaUtils.create(ContactTable)
+        SchemaUtils.create
+        (ContactTable)
 
+//        shall be removed after first run
         ContactTable.insert {
-            it[name] = "testing1"
+            it[lastName] = "Meier"
+            it[firstName] = "Berta"
+            it[title] = "Frau"
         }
-
-        ContactTable.insert {
-            it[name] = "testing2"
-        }
-
     }
 
     runApplication<CmsBackendApplication>(*args)
