@@ -24,8 +24,8 @@ fun main(args: Array<String>) {
     transaction {
         addLogger(StdOutSqlLogger)
 
-        SchemaUtils.create
-        (ContactTable)
+//        shall be removed after first run
+        SchemaUtils.create(ContactTable)
 
 //        shall be removed after first run
         ContactTable.insert {
