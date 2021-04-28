@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   corg-frontend:
-    image: "cms-fe:1.4"
+    image: "cms-fe:1.7"
     ports:
       - "3000:3000" # localhost-port:container-port
   db:
@@ -22,7 +22,7 @@ services:
     volumes:
       - postgres-db:/var/lib/postgresql/data
   corg-backend:
-    image: "cms-be:1.9.4"
+    image: "cms-be:1.9.7"
     ports:
       - "8080:8080"
     depends_on:

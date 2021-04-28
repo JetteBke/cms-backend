@@ -1,5 +1,6 @@
 package com.example.cmsbackend.db
 
+import com.example.cmsbackend.Contact
 import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -9,7 +10,7 @@ object ContactTable : Table() {
     val title = varchar("title", 50)
     val firstName = varchar("firstName", 50).nullable()
     val lastName = varchar("lastName", 50)
-    val street = varchar("street", 70).nullable()
+    val address = varchar("street", 70).nullable()
     val postalCode = integer("postalCode").nullable()
     val city = varchar("city", 50).nullable()
     val phoneOne = integer("phoneOne").nullable()
@@ -18,6 +19,6 @@ object ContactTable : Table() {
     val emailTwo = varchar("emailTwo", 50).nullable()
 
     fun getAll(): List<Any> = transaction {
-        ContactTable.selectAll().map { it[lastName] }
+        ContactTable.selectAll().map {it}
     }
 }

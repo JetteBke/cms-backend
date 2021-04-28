@@ -28,6 +28,8 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
     }
+    testImplementation("io.mockk:mockk:1.11.0")
+    testImplementation("io.strikt:strikt-core:0.30.1")
 }
 
 tasks.withType<Test> {
