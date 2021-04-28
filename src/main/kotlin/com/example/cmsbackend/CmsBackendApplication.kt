@@ -24,15 +24,7 @@ fun main(args: Array<String>) {
     transaction {
         addLogger(StdOutSqlLogger)
 
-//        shall be removed after first run
         SchemaUtils.create(ContactTable)
-
-//        shall be removed after first run
-        ContactTable.insert {
-            it[lastName] = "Meier"
-            it[firstName] = "Berta"
-            it[title] = "Frau"
-        }
     }
 
     runApplication<CmsBackendApplication>(*args)

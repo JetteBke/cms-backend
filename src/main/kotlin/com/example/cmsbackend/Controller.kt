@@ -1,16 +1,17 @@
 package com.example.cmsbackend
 
 import com.google.gson.Gson
+import mu.KotlinLogging
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
-
 
 @CrossOrigin(maxAge = 3600)
 @RestController
@@ -28,7 +29,7 @@ class AppsController(
     @PostMapping("/cms/api/contacts/new", produces = ["application/json"])
     @ResponseStatus(HttpStatus.CREATED)
     fun saveContact(
-        @RequestParam contactData: Map<String, String>
+        @RequestBody contactData: Map<String, String>
     ) {
         service.saveContact(contactData)
     }
