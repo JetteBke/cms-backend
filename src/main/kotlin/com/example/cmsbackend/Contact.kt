@@ -6,15 +6,15 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 data class Contact(
     val id: Int?,
     val title: String,
-    val firstName: String? = null,
+    val firstName: String?,
     val lastName: String,
-    val address: String? = null,
-    val postalCode: Int? = null,
-    val city: String? = null,
-    val phoneOne: Int? = null,
-    val phoneTwo: Int? = null,
-    val emailOne: String? = null,
-    val emailTwo: String? = null
+    val address: String?,
+    val postalCode: Int?,
+    val city: String?,
+    val phoneOne: Int?,
+    val phoneTwo: Int?,
+    val emailOne: String?,
+    val emailTwo: String?
 )
 
 fun Map<String, String>.toContact(): Contact {
