@@ -4,6 +4,7 @@ import com.example.cmsbackend.db.ContactTable
 import mu.KotlinLogging
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.transactions.transaction
+import org.jetbrains.exposed.sql.update
 import org.springframework.stereotype.Component
 
 private val ourLogger = KotlinLogging.logger {}
@@ -32,5 +33,24 @@ class ContactDbClient {
             }
         }
         ourLogger.info { "Successfully inserted a contact" }
+    }
+
+    fun updateContact(contact: Contact) {
+        ourLogger.info { "About to update data" }
+        transaction {
+            ContactTable.update({ ContactTable.id eq contact.id }) {
+                it[title] = contact.title
+                it[firstName] = contact.firstName
+                it[lastName] = contact.lastName
+                it[address] = contact.address
+                it[postalCode] = contact.postalCode
+                it[city] = contact.city
+                it[phoneOne] = contact.phoneOne
+                it[phoneTwo] = contact.phoneTwo
+                it[emailOne] = contact.emailOne
+                it[emailTwo] = contact.emailTwo
+            }
+        }
+        ourLogger.info { "Successfully updated a contact with id ${contact.id}" }
     }
 }

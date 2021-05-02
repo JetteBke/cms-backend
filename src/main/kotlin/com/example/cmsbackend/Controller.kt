@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseBody
@@ -32,5 +33,13 @@ class AppsController(
         @RequestBody contactData: Map<String, String>
     ) {
         service.saveContact(contactData)
+    }
+
+    @PutMapping("/cms/api/contacts/edit", produces = ["application/json"])
+    @ResponseStatus(HttpStatus.OK)
+    fun updateContact(
+        @RequestBody contactData: Map<String, String>
+    ) {
+        service.updateContact(contactData)
     }
 }
