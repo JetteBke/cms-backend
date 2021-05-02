@@ -10,6 +10,7 @@ class ContactService(
     val dbClient: ContactDbClient
 ) {
     fun getContacts(): List<Any> {
+        ourLogger.info { "Getting contacts" }
         return dbClient.getContacts()
     }
 
@@ -23,5 +24,10 @@ class ContactService(
         ourLogger.info { "The following data will be converted to contact: $contactData" }
         val contact = contactData.toContact()
         dbClient.updateContact(contact)
+    }
+
+    fun getContact(contactId: Int): Any {
+        ourLogger.info { "Getting contact with id: $contactId" }
+        return dbClient.getContact(contactId)
     }
 }

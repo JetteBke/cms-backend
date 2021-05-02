@@ -5,7 +5,7 @@ import strikt.api.expectThat
 import strikt.assertions.isA
 
 internal class ContactTest {
-    private val contactData = mapOf("title" to "Frau", "lastName" to "Meister")
+    private val contactData = mapOf("id" to "2", "title" to "Frau", "lastName" to "Meister")
 
     @Test
     fun `should convert map to contact`() {
