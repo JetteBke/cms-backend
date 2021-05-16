@@ -7,6 +7,7 @@ object ContactTable : Table() {
     val title = varchar("title", 50)
     val firstName = varchar("firstName", 50).nullable()
     val lastName = varchar("lastName", 50)
+    val company = varchar("company", 50).nullable()
     val address = varchar("street", 70).nullable()
     val postalCode = integer("postalCode").nullable()
     val city = varchar("city", 50).nullable()

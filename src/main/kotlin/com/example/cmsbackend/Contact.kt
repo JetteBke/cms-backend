@@ -1,7 +1,6 @@
 package com.example.cmsbackend
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import java.sql.Time
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class Contact(
@@ -9,6 +8,7 @@ data class Contact(
     val title: String,
     val firstName: String?,
     val lastName: String,
+    val company: String?,
     val address: String?,
     val postalCode: Int?,
     val city: String?,
@@ -24,6 +24,7 @@ fun Map<String, String>.toContact(): Contact {
         title = this["title"].toString(),
         firstName = this["firstName"],
         lastName = this["lastName"].toString(),
+        company = this["company"].toString(),
         address = this["address"],
         postalCode = this["postalCode"]?.toInt(),
         city = this["city"],

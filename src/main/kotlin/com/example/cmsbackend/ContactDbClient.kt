@@ -22,6 +22,7 @@ class ContactDbClient {
                     "title" to it[ContactTable.title],
                     "firstName" to it[ContactTable.firstName],
                     "lastName" to it[ContactTable.lastName],
+                    "company" to it[ContactTable.company],
                     "address" to it[ContactTable.address],
                     "postalCode" to it[ContactTable.postalCode],
                     "city" to it[ContactTable.city],
@@ -43,6 +44,7 @@ class ContactDbClient {
                     "title" to it[ContactTable.title],
                     "firstName" to it[ContactTable.firstName],
                     "lastName" to it[ContactTable.lastName],
+                    "company" to it[ContactTable.company],
                     "address" to it[ContactTable.address],
                     "postalCode" to it[ContactTable.postalCode],
                     "city" to it[ContactTable.city],
@@ -62,6 +64,7 @@ class ContactDbClient {
                 it[title] = contact.title
                 it[firstName] = contact.firstName
                 it[lastName] = contact.lastName
+                it[company] = contact.company
                 it[address] = contact.address
                 it[postalCode] = contact.postalCode
                 it[city] = contact.city
@@ -81,6 +84,7 @@ class ContactDbClient {
                 it[title] = contact.title
                 it[firstName] = contact.firstName
                 it[lastName] = contact.lastName
+                it[company] = contact.company
                 it[address] = contact.address
                 it[postalCode] = contact.postalCode
                 it[city] = contact.city
