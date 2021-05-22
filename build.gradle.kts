@@ -31,6 +31,7 @@ dependencies {
     testImplementation("io.mockk:mockk:1.11.0")
     testImplementation("io.strikt:strikt-core:0.30.1")
     implementation("io.github.microutils:kotlin-logging:2.0.6")
+    implementation("com.github.doyaaaaaken:kotlin-csv-jvm:0.15.2")
 }
 
 tasks.withType<Test> {
