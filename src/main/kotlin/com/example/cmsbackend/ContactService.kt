@@ -16,8 +16,7 @@ class ContactService(
 
     fun saveContact(contactData: Map<String, String>) {
         ourLogger.info { "The following data will be converted to contact: $contactData" }
-        val contact = contactData.toContact()
-        dbClient.saveContact(contact)
+        dbClient.saveContact(contactData)
     }
 
     fun updateContact(contactData: Map<String, String>) {
