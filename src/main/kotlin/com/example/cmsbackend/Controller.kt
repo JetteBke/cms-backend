@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.multipart.MultipartFile
 
 @CrossOrigin(maxAge = 3600)
 @RestController
@@ -51,5 +52,13 @@ class AppsController(
         @RequestBody contactData: Map<String, String>
     ) {
         service.updateContact(contactData)
+    }
+
+    @PostMapping("/cms/api/fileUpload", consumes = ["multipart/form-data"])
+    @ResponseStatus(HttpStatus.CREATED)
+    fun uploadFile(
+        @RequestBody file: MultipartFile
+    ) {
+        service.uploadFile(file)
     }
 }

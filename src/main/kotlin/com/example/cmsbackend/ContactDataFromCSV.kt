@@ -1,18 +1,10 @@
 package com.example.cmsbackend
-
 import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
-import java.io.File
-import mu.KotlinLogging
+import java.io.InputStream
 
-private val ourLogger = KotlinLogging.logger {}
-
-fun loadDataFromCsv(fileLocation: String): List<Map<String, String>> {
-    ourLogger.info { "Reading data from $fileLocation" }
-    val file = File(fileLocation)
+fun loadDataFromCsv(stream: InputStream): List<Map<String, String>> {
     val reader = csvReader {
         delimiter = ';'
     }
-    val rows: List<Map<String, String>> = reader.readAllWithHeader(file)
-    ourLogger.info { "Successfully read data from $fileLocation" }
-    return rows
+    return reader.readAllWithHeader(stream)
 }

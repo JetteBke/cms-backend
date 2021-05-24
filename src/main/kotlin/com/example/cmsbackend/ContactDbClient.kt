@@ -58,22 +58,8 @@ class ContactDbClient {
     }
 
     fun saveContact(contact: Map<String,String>) {
-        ourLogger.info { "About to insert data" }
-        transaction {
-            ContactTable.insert {
-                it[title] = contact["title"].toString()
-                it[firstName] = contact["firstName"]
-                it[lastName] = contact["lastName"].toString()
-                it[company] = contact["company"]
-                it[address] = contact["address"]
-                it[postalCode] = contact["postalCode"]?.toInt()
-                it[city] = contact["city"]
-                it[phoneOne] = contact["phoneOne"]?.toInt()
-                it[phoneTwo] = contact["phoneTwo"]?.toInt()
-                it[emailOne] = contact["emailOne"]
-                it[emailTwo] = contact["emailTwo"]
-            }
-        }
+        ourLogger.info { "About to insert data $contact" }
+        insertContact(contact)
         ourLogger.info { "Successfully inserted a contact" }
     }
 
@@ -95,5 +81,27 @@ class ContactDbClient {
             }
         }
         ourLogger.info { "Successfully updated a contact with id ${contact.id}" }
+    }
+
+    fun insertContactsFromFile(contactDataFromFile: List<Map<String, String>>) {
+        contactDataFromFile.map { insertContact(it) }
+    }
+
+    fun insertContact(contact: Map<String,String>) {
+        transaction {
+            ContactTable.insert {
+                it[title] = contact["title"].toString()
+                it[firstName] = contact["firstName"]
+                it[lastName] = contact["lastName"].toString()
+                it[company] = contact["company"]
+                it[address] = contact["address"]
+                it[postalCode] = contact["postalCode"]?.toInt()
+                it[city] = contact["city"]
+                it[phoneOne] = contact["phoneOne"]?.toInt()
+                it[phoneTwo] = contact["phoneTwo"]?.toInt()
+                it[emailOne] = contact["emailOne"]
+                it[emailTwo] = contact["emailTwo"]
+            }
+        }
     }
 }

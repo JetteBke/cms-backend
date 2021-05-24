@@ -1,18 +1,25 @@
 package com.example.cmsbackend
 
+import java.io.ByteArrayInputStream
+import java.io.File
+import java.io.FileInputStream
 import org.junit.jupiter.api.Test
 import strikt.api.expectThat
 import strikt.assertions.isEqualTo
 
+
 class ContactDataFromCSVTest {
     @Test
     fun `returns a list of objects from csv`() {
-        val csvFile = "src/test/kotlin/com/example/cmsbackend/dataForTests/test-data.csv"
-        val loadedData = loadDataFromCsv(csvFile)
+        val file = File("src/test/kotlin/com/example/cmsbackend/dataForTests/test-data.csv")
+        val input = file.inputStream()
         val expectedData = listOf(
             mapOf("lastName" to "Meier", "firstName" to "Lena"),
             mapOf("lastName" to "Mustermann", "firstName" to "Max")
         )
+
+        val loadedData = loadDataFromCsv(input)
+
         expectThat(loadedData).isEqualTo(expectedData)
     }
 }
