@@ -14,7 +14,6 @@ private val ourLogger = KotlinLogging.logger {}
 @Component
 class ContactDbClient {
     fun getContacts(): List<Any> {
-        ourLogger.info { "About to get contacts" }
         return transaction {
             ContactTable.selectAll().map {
                 mapOf(
@@ -36,7 +35,6 @@ class ContactDbClient {
     }
 
     fun getContact(contactId: Int): Any {
-        ourLogger.info { "About to get contact with id $contactId" }
         return transaction {
             ContactTable.select { ContactTable.id eq contactId }.map {
                 mapOf(
@@ -58,13 +56,10 @@ class ContactDbClient {
     }
 
     fun saveContact(contact: Map<String,String>) {
-        ourLogger.info { "About to insert data $contact" }
         insertContact(contact)
-        ourLogger.info { "Successfully inserted a contact" }
     }
 
     fun updateContact(contact: Contact) {
-        ourLogger.info { "About to update data" }
         transaction {
             ContactTable.update({ ContactTable.id eq contact.id }) {
                 it[title] = contact.title
@@ -80,7 +75,6 @@ class ContactDbClient {
                 it[emailTwo] = contact.emailTwo
             }
         }
-        ourLogger.info { "Successfully updated a contact with id ${contact.id}" }
     }
 
     fun insertContactsFromFile(contactDataFromFile: List<Map<String, String>>) {
