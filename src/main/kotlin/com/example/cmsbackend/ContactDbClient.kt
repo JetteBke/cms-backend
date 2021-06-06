@@ -1,15 +1,12 @@
 package com.example.cmsbackend
 
 import com.example.cmsbackend.db.ContactTable
-import mu.KotlinLogging
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.jetbrains.exposed.sql.update
 import org.springframework.stereotype.Component
-
-private val ourLogger = KotlinLogging.logger {}
 
 @Component
 class ContactDbClient {
@@ -55,11 +52,11 @@ class ContactDbClient {
         }
     }
 
-    fun saveContact(contact: Map<String,String>) {
+    fun saveContact(contact: Contact) {
         insertContact(contact)
     }
 
-    fun updateContact(contact: Contact) {
+    fun updateContact(contact: ContactWithId) {
         transaction {
             ContactTable.update({ ContactTable.id eq contact.id }) {
                 it[title] = contact.title
@@ -77,24 +74,24 @@ class ContactDbClient {
         }
     }
 
-    fun insertContactsFromFile(contactDataFromFile: List<Map<String, String>>) {
+    fun insertContactsFromFile(contactDataFromFile: List<Contact>) {
         contactDataFromFile.map { insertContact(it) }
     }
 
-    fun insertContact(contact: Map<String,String>) {
+    fun insertContact(contact: Contact) {
         transaction {
             ContactTable.insert {
-                it[title] = contact["title"].toString()
-                it[firstName] = contact["firstName"]
-                it[lastName] = contact["lastName"].toString()
-                it[company] = contact["company"]
-                it[address] = contact["address"]
-                it[postalCode] = contact["postalCode"]?.toInt()
-                it[city] = contact["city"]
-                it[phoneOne] = contact["phoneOne"]?.toInt()
-                it[phoneTwo] = contact["phoneTwo"]?.toInt()
-                it[emailOne] = contact["emailOne"]
-                it[emailTwo] = contact["emailTwo"]
+                it[title] = contact.title
+                it[firstName] = contact.firstName
+                it[lastName] = contact.lastName
+                it[company] = contact.company
+                it[address] = contact.address
+                it[postalCode] = contact.postalCode
+                it[city] = contact.city
+                it[phoneOne] = contact.phoneOne
+                it[phoneTwo] = contact.phoneTwo
+                it[emailOne] = contact.emailOne
+                it[emailTwo] = contact.emailTwo
             }
         }
     }

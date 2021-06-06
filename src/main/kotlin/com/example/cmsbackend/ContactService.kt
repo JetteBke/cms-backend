@@ -19,12 +19,14 @@ class ContactService(
 
     fun saveContact(contactData: Map<String, String>) {
         ourLogger.info { "The following data will be converted to contact: $contactData" }
-        dbClient.saveContact(contactData)
+        val contact = contactData.toContact()
+        ourLogger.info { "The following data will be inserted $contact" }
+        dbClient.saveContact(contact)
     }
 
     fun updateContact(contactData: Map<String, String>) {
         ourLogger.info { "The following data will be converted to contact: $contactData" }
-        val contact = contactData.toContact()
+        val contact = contactData.toContactWithId()
         ourLogger.info { "The contact with id ${contact.id} will be updated" }
         dbClient.updateContact(contact)
     }
@@ -37,7 +39,7 @@ class ContactService(
     fun uploadFile(file: MultipartFile) {
         ourLogger.info { "Uploading file ${file.originalFilename}" }
         val inputStream: InputStream = BufferedInputStream(file.inputStream)
-        val contactData = loadDataFromCsv(inputStream)
+        val contactData = loadDataFromCsv(inputStream).map { it.toContact() }
         dbClient.insertContactsFromFile(contactData)
         ourLogger.info { "Inserted ${contactData.size} contacts" }
     }
