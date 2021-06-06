@@ -19,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile
 
 @CrossOrigin(maxAge = 3600)
 @RestController
-class AppsController(
+class ContactController(
     val service: ContactService
 ) {
     @GetMapping("/cms/api/contacts", produces = ["application/json"])

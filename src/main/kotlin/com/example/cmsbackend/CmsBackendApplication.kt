@@ -1,6 +1,7 @@
 package com.example.cmsbackend
 
 import com.example.cmsbackend.db.ContactTable
+import com.example.cmsbackend.db.NoteTable
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.StdOutSqlLogger
@@ -22,8 +23,8 @@ fun main(args: Array<String>) {
 
     transaction {
         addLogger(StdOutSqlLogger)
-
         SchemaUtils.create(ContactTable)
+        SchemaUtils.create(NoteTable)
     }
 
     runApplication<CmsBackendApplication>(*args)

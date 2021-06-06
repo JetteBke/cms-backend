@@ -15,4 +15,14 @@ object ContactTable : Table() {
     val phoneTwo = integer("phoneTwo").nullable()
     val emailOne = varchar("emailOne", 50).nullable()
     val emailTwo = varchar("emailTwo", 50).nullable()
+
+    override val primaryKey = PrimaryKey(id, name = "contactId") // name is optional here
+}
+
+object NoteTable : Table() {
+    val id = integer("id").autoIncrement()
+    val createdAt = long("createdAt")
+    val updatedAt = long("updatedAt").nullable()
+    val text = text("text")
+    val contactId = (integer("contactId") references ContactTable.id)
 }
