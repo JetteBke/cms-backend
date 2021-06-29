@@ -3,8 +3,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("org.springframework.boot") version "2.3.1.RELEASE"
     id("io.spring.dependency-management") version "1.0.9.RELEASE"
-    kotlin("jvm") version "1.3.72"
-    kotlin("plugin.spring") version "1.3.72"
+    kotlin("jvm") version "1.4.32"
+    kotlin("plugin.spring") version "1.4.32"
 }
 
 group = "com.example"
@@ -32,6 +32,7 @@ dependencies {
     testImplementation("io.strikt:strikt-core:0.30.1")
     implementation("io.github.microutils:kotlin-logging:2.0.6")
     implementation("com.github.doyaaaaaken:kotlin-csv-jvm:0.15.2")
+    implementation("io.arrow-kt:arrow-core:0.13.1")
 }
 
 tasks.withType<Test> {
