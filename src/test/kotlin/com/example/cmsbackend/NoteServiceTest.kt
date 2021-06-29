@@ -22,4 +22,20 @@ internal class NoteServiceTest {
             .isLeft()
             .isA<Failure>()
     }
+
+    @Test
+    fun `returns notes for a contact`() {
+        every {
+            noteDbClient.getNotes(any())
+
+        } returns listOf(Note(
+            contactId = 2,
+            text = "a testing note",
+            updatedAt = 123456,
+            createdAt = 1234563))
+
+        expectThat(noteService.getNotes("2"))
+            .isRight()
+            .isA<List<Note>>()
+    }
 }

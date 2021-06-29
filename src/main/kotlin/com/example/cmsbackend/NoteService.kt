@@ -3,6 +3,7 @@ package com.example.cmsbackend
 import arrow.core.Either
 import arrow.core.left
 import arrow.core.right
+import java.lang.Integer.parseInt
 import mu.KotlinLogging
 import org.springframework.stereotype.Service
 
@@ -21,6 +22,13 @@ class NoteService(
         }.getOrElse {
             ourLogger.info { "The following note could not be saved: $noteData" }
             Failure("Note could not be saved").left()
+        }
+
+    fun getNotes(contactId: String): Either<Failure, List<Note>> =
+        runCatching {
+            dbClient.getNotes(parseInt(contactId)).right()
+        }.getOrElse {
+            Failure("Could not get notes for $contactId").left()
         }
 }
 
