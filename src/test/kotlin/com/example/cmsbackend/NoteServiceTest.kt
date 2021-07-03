@@ -27,7 +27,6 @@ internal class NoteServiceTest {
     fun `returns notes for a contact`() {
         every {
             noteDbClient.getNotes(any())
-
         } returns listOf(Note(
             contactId = 2,
             text = "a testing note",
