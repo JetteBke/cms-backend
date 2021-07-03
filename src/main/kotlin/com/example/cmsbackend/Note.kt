@@ -13,7 +13,7 @@ data class Note(
 fun Map<String, String>.toNote(): Note {
     return Note(
         createdAt = this["createdAt"]!!.toLong(),
-        updatedAt = this["updatedAt"]!!.toLong(),
+        updatedAt = this["updatedAt"]?.toLong(),
         text = this["text"]!!.toString(),
         contactId = this["contactId"]!!.toInt()
     )
