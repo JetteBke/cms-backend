@@ -1,10 +1,11 @@
 package com.example.cmsbackend
 
 import com.google.gson.Gson
+import java.net.URI
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.http.ResponseEntity.badRequest
-import org.springframework.http.ResponseEntity.noContent
+import org.springframework.http.ResponseEntity.created
 import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -23,7 +24,7 @@ class NoteController(
         @PathVariable contactId: String
     ): ResponseEntity<out Any> {
         return service.saveNote(noteData, contactId).fold(
-            ifRight = { noContent().build() },
+            ifRight = { created(URI("")).build() },
             ifLeft = { badRequest().build() }
         )
     }
