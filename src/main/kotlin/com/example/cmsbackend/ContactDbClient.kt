@@ -1,6 +1,7 @@
 package com.example.cmsbackend
 
 import com.example.cmsbackend.db.ContactTable
+import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.selectAll
@@ -10,43 +11,43 @@ import org.springframework.stereotype.Component
 
 @Component
 class ContactDbClient {
-    fun getContacts(): List<Any> {
+    fun getContacts(): List<ContactWithId> {
         return transaction {
             ContactTable.selectAll().map {
-                mapOf(
-                    "id" to it[ContactTable.id],
-                    "title" to it[ContactTable.title],
-                    "firstName" to it[ContactTable.firstName],
-                    "lastName" to it[ContactTable.lastName],
-                    "company" to it[ContactTable.company],
-                    "address" to it[ContactTable.address],
-                    "postalCode" to it[ContactTable.postalCode],
-                    "city" to it[ContactTable.city],
-                    "phoneOne" to it[ContactTable.phoneOne],
-                    "phoneTwo" to it[ContactTable.phoneTwo],
-                    "emailOne" to it[ContactTable.emailOne],
-                    "emailTwo" to it[ContactTable.emailTwo]
+                ContactWithId(
+                    id = it[ContactTable.id],
+                    title = it[ContactTable.title],
+                    firstName = it[ContactTable.firstName],
+                    lastName = it[ContactTable.lastName],
+                    company = it[ContactTable.company],
+                    address = it[ContactTable.address],
+                    postalCode = it[ContactTable.postalCode],
+                    city = it[ContactTable.city],
+                    phoneOne = it[ContactTable.phoneOne],
+                    phoneTwo = it[ContactTable.phoneTwo],
+                    emailOne = it[ContactTable.emailOne],
+                    emailTwo = it[ContactTable.emailTwo]
                 )
             }
         }
     }
 
-    fun getContact(contactId: Int): Any {
+    fun getContact(contactId: Int): ContactWithId {
         return transaction {
             ContactTable.select { ContactTable.id eq contactId }.map {
-                mapOf(
-                    "id" to it[ContactTable.id],
-                    "title" to it[ContactTable.title],
-                    "firstName" to it[ContactTable.firstName],
-                    "lastName" to it[ContactTable.lastName],
-                    "company" to it[ContactTable.company],
-                    "address" to it[ContactTable.address],
-                    "postalCode" to it[ContactTable.postalCode],
-                    "city" to it[ContactTable.city],
-                    "phoneOne" to it[ContactTable.phoneOne],
-                    "phoneTwo" to it[ContactTable.phoneTwo],
-                    "emailOne" to it[ContactTable.emailOne],
-                    "emailTwo" to it[ContactTable.emailTwo]
+                ContactWithId(
+                    id = it[ContactTable.id],
+                    title = it[ContactTable.title],
+                    firstName = it[ContactTable.firstName],
+                    lastName = it[ContactTable.lastName],
+                    company = it[ContactTable.company],
+                    address = it[ContactTable.address],
+                    postalCode = it[ContactTable.postalCode],
+                    city = it[ContactTable.city],
+                    phoneOne = it[ContactTable.phoneOne],
+                    phoneTwo = it[ContactTable.phoneTwo],
+                    emailOne = it[ContactTable.emailOne],
+                    emailTwo = it[ContactTable.emailTwo]
                 )
             }.first()
         }
@@ -78,7 +79,7 @@ class ContactDbClient {
         contactDataFromFile.map { insertContact(it) }
     }
 
-    fun insertContact(contact: Contact) {
+    private fun insertContact(contact: Contact) {
         transaction {
             ContactTable.insert {
                 it[title] = contact.title

@@ -12,7 +12,7 @@ private val ourLogger = KotlinLogging.logger {}
 class ContactService(
     val dbClient: ContactDbClient
 ) {
-    fun getContacts(): List<Any> {
+    fun getContacts(): List<ContactWithId> {
         ourLogger.info { "Getting contacts" }
         return dbClient.getContacts()
     }
@@ -31,7 +31,7 @@ class ContactService(
         dbClient.updateContact(contact)
     }
 
-    fun getContact(contactId: Int): Any {
+    fun getContact(contactId: Int): ContactWithId {
         ourLogger.info { "Getting contact with id: $contactId" }
         return dbClient.getContact(contactId)
     }
