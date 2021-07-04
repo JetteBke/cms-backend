@@ -8,9 +8,7 @@ You need to have `docker`, `docker compose` and `postgres` installed.
 
 ## Run locally
 
-Run `docker-compose up` in the root directory. (currently not working)
-
-(This is a workaround until I figure out how to create db in a different way):
+When running it the first time you need to create the database manually: 
 
 First you need to start a database with
 
@@ -28,10 +26,18 @@ Create a database named `cms` with
 ```aidl
 Create database cms;
 ```
-After that you can run the app with `./gradlew bootRun` from the root directory.
 
-There is some fake data so to try if the app is working properly you can call `localhost:8080/hello` and it should return a list with two entries.
+After that you need to make sure that you also have the needed [frontend repository](https://github.com/JetteBke/contact-organizer-for-fun) cloned.
+For both, this one and the frontend repo you need to build the docker images with
+```aidl
+docker build -t <THE_IMAGE_NAME_YOU_SELECT>:<THE_VERSION_TAG_YOU_WANT> .
+```
 
+Make sure to put the correct image names in the `docker-compose.yml` file in the root directory of this repository.
+
+Run `docker compose up` in the root directory. (This should now start the database, frontend and backend and you should be able to access the application at `http://localhost:3000`)
+
+Whenever you are done, just run `docker compose down` to stop the different services. 
 ____________________
 
 ### Reference Documentation
