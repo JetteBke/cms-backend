@@ -1,5 +1,7 @@
-package com.example.cmsbackend
+package com.example.cmsbackend.contacts
 
+import com.example.cmsbackend.Failure
+import com.example.cmsbackend.isLeft
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Test

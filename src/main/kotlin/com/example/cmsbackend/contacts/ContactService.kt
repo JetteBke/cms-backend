@@ -1,8 +1,9 @@
-package com.example.cmsbackend
+package com.example.cmsbackend.contacts
 
 import arrow.core.Either
 import arrow.core.left
 import arrow.core.right
+import com.example.cmsbackend.Failure
 import java.io.BufferedInputStream
 import java.io.InputStream
 import mu.KotlinLogging

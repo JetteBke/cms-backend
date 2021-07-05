@@ -1,4 +1,4 @@
-package com.example.cmsbackend
+package com.example.cmsbackend.contacts
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 

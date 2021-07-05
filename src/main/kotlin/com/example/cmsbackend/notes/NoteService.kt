@@ -1,9 +1,9 @@
-package com.example.cmsbackend
+package com.example.cmsbackend.notes
 
 import arrow.core.Either
 import arrow.core.left
 import arrow.core.right
-import java.lang.Integer.parseInt
+import com.example.cmsbackend.Failure
 import mu.KotlinLogging
 import org.springframework.stereotype.Service
 

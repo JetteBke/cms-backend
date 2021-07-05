@@ -1,4 +1,4 @@
-package com.example.cmsbackend
+package com.example.cmsbackend.notes
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 

@@ -1,4 +1,4 @@
-package com.example.cmsbackend
+package com.example.cmsbackend.notes
 
 import com.google.gson.Gson
 import java.net.URI

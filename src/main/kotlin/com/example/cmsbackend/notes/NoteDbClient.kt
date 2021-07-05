@@ -1,7 +1,6 @@
-package com.example.cmsbackend
+package com.example.cmsbackend.notes
 
 import com.example.cmsbackend.db.NoteTable
-import mu.KotlinLogging
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction

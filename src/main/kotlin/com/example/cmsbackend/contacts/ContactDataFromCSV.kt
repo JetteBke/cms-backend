@@ -1,4 +1,4 @@
-package com.example.cmsbackend
+package com.example.cmsbackend.contacts
 import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
 import java.io.InputStream
 

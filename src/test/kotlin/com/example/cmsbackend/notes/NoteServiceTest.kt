@@ -1,5 +1,8 @@
-package com.example.cmsbackend
+package com.example.cmsbackend.notes
 
+import com.example.cmsbackend.Failure
+import com.example.cmsbackend.isLeft
+import com.example.cmsbackend.isRight
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Test
@@ -25,11 +28,13 @@ internal class NoteServiceTest {
     fun `returns notes for a contact`() {
         every {
             noteDbClient.getNotes(any())
-        } returns listOf(Note(
+        } returns listOf(
+            Note(
             contactId = 2,
             text = "a testing note",
             updatedAt = 123456,
-            createdAt = 1234563))
+            createdAt = 1234563)
+        )
 
         expectThat(noteService.getNotes(2))
             .isRight()
