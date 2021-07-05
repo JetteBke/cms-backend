@@ -38,7 +38,7 @@ fun Map<String, String>.toContactWithId(): ContactWithId {
         title = this["title"].toString(),
         firstName = this["firstName"],
         lastName = this["lastName"].toString(),
-        company = this["company"].toString(),
+        company = this["company"],
         address = this["address"],
         postalCode = this["postalCode"]?.toInt(),
         city = this["city"],
