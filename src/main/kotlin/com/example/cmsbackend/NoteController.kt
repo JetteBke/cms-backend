@@ -21,7 +21,7 @@ class NoteController(
     @PostMapping("/cms/api/contact/{contactId}/notes/new", produces = ["application/json"])
     fun saveNote(
         @RequestBody noteData: Map<String, String>,
-        @PathVariable contactId: String
+        @PathVariable contactId: Int
     ): ResponseEntity<out Any> {
         return service.saveNote(noteData, contactId).fold(
             ifRight = { created(URI("")).build() },
@@ -30,7 +30,7 @@ class NoteController(
     }
 
     @GetMapping("/cms/api/contact/{contactId}/notes", produces = ["application/json"])
-    fun getNotes(@PathVariable contactId: String): ResponseEntity<Any?> {
+    fun getNotes(@PathVariable contactId: Int): ResponseEntity<Any?> {
         return service.getNotes(contactId).fold(
             ifRight = { ResponseEntity(Gson().toJson(it), HttpStatus.OK) },
             ifLeft = { badRequest().build() }

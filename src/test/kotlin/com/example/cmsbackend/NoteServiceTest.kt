@@ -12,13 +12,11 @@ internal class NoteServiceTest {
 
     @Test
     fun `returns failure if note could not be saved`() {
-
         every {
             noteDbClient.saveNote(any())
-
         } throws NullPointerException()
 
-        expectThat(noteService.saveNote(mapOf("firstName" to "Jana"), "2"))
+        expectThat(noteService.saveNote(mapOf("firstName" to "Jana"), 2))
             .isLeft()
             .isA<Failure>()
     }
@@ -33,7 +31,7 @@ internal class NoteServiceTest {
             updatedAt = 123456,
             createdAt = 1234563))
 
-        expectThat(noteService.getNotes("2"))
+        expectThat(noteService.getNotes(2))
             .isRight()
             .isA<List<Note>>()
     }

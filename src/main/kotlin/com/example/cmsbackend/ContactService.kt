@@ -1,5 +1,8 @@
 package com.example.cmsbackend
 
+import arrow.core.Either
+import arrow.core.left
+import arrow.core.right
 import java.io.BufferedInputStream
 import java.io.InputStream
 import mu.KotlinLogging
@@ -17,24 +20,43 @@ class ContactService(
         return dbClient.getContacts()
     }
 
-    fun saveContact(contactData: Map<String, String>) {
-        ourLogger.info { "The following data will be converted to contact: $contactData" }
-        val contact = contactData.toContact()
-        ourLogger.info { "The following data will be inserted $contact" }
-        dbClient.saveContact(contact)
-    }
+    fun saveContact(contactData: Map<String, String>): Either<Failure, Unit> =
+        runCatching {
+            val contact = contactData.toContact()
+            ourLogger.info { "The following data will be inserted $contact" }
+            dbClient.saveContact(contact).right()
+        }.getOrElse {
+            ourLogger.info { "The following contact could not be saved: $contactData" }
+            Failure("Contact could not be saved").left()
+        }
 
-    fun updateContact(contactData: Map<String, String>) {
-        ourLogger.info { "The following data will be converted to contact: $contactData" }
-        val contact = contactData.toContactWithId()
-        ourLogger.info { "The contact with id ${contact.id} will be updated" }
-        dbClient.updateContact(contact)
-    }
+    fun updateContact(contactData: Map<String, String>): Either<Failure, Unit> =
+        runCatching {
+            val contact = contactData.toContactWithId()
+            ourLogger.info { "The contact with id ${contact.id} will be updated" }
+            dbClient.updateContact(contact).right()
+        }.getOrElse {
+            ourLogger.info { "The following contact could not be updated: $contactData" }
+            Failure("Contact could not be updated").left()
+        }
 
-    fun getContact(contactId: Int): ContactWithId {
-        ourLogger.info { "Getting contact with id: $contactId" }
-        return dbClient.getContact(contactId)
-    }
+    fun getContact(contactId: Int): Either<Failure, ContactWithId> =
+        runCatching {
+            ourLogger.info { "Getting contact with id: $contactId" }
+            return dbClient.getContact(contactId).right()
+        }.getOrElse {
+            ourLogger.info { "Could not get contact with id $contactId" }
+            Failure("Could not get contact with id $contactId").left()
+        }
+
+    fun deleteContact(contactId: Int): Either<Failure, Unit> =
+        runCatching {
+            ourLogger.info { "Removing contact with id: $contactId" }
+            return dbClient.deleteContact(contactId).right()
+        }.getOrElse {
+            ourLogger.info { "Could not delete contact with id $contactId" }
+            Failure("Could not delete contact with id $contactId").left()
+        }
 
     fun uploadFile(file: MultipartFile) {
         ourLogger.info { "Uploading file ${file.originalFilename}" }

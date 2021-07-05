@@ -6,6 +6,7 @@ import mu.KotlinLogging
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.CrossOrigin
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -32,9 +33,9 @@ class ContactController(
 
     @GetMapping("/cms/api/contacts/{contactId}", produces = ["application/json"])
     @ResponseBody
-    fun getContact(@PathVariable contactId: String): ResponseEntity<Any?> {
+    fun getContact(@PathVariable contactId: Int): ResponseEntity<Any?> {
 
-        val contact = service.getContact(parseInt(contactId))
+        val contact = service.getContact(contactId)
         return ResponseEntity(Gson().toJson(contact), HttpStatus.OK)
     }
 
@@ -52,6 +53,12 @@ class ContactController(
         @RequestBody contactData: Map<String, String>
     ) {
         service.updateContact(contactData)
+    }
+
+    @DeleteMapping("/cms/api/contacts/{contactId}/delete", produces = ["application/json"])
+    @ResponseStatus(HttpStatus.OK)
+    fun deleteContact(@PathVariable contactId: Int) {
+        service.deleteContact(contactId)
     }
 
     @PostMapping("/cms/api/fileUpload", consumes = ["multipart/form-data"])

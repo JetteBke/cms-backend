@@ -1,7 +1,9 @@
 package com.example.cmsbackend
 
 import com.example.cmsbackend.db.ContactTable
+import com.example.cmsbackend.db.NoteTable
 import org.jetbrains.exposed.sql.ResultRow
+import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.selectAll
@@ -72,6 +74,15 @@ class ContactDbClient {
                 it[emailOne] = contact.emailOne
                 it[emailTwo] = contact.emailTwo
             }
+        }
+    }
+
+    fun deleteContact(contactId: Int) {
+        transaction {
+            NoteTable.deleteWhere { NoteTable.contactId eq contactId }
+        }
+        transaction {
+            ContactTable.deleteWhere { ContactTable.id eq contactId }
         }
     }
 

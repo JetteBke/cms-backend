@@ -13,10 +13,9 @@ private val ourLogger = KotlinLogging.logger {}
 class NoteService(
     val dbClient: NoteDbClient
 ) {
-    fun saveNote(noteData: Map<String, String>, contactId: String): Either<Failure, Unit> =
+    fun saveNote(noteData: Map<String, String>, contactId: Int): Either<Failure, Unit> =
         runCatching {
-            ourLogger.info { "The following data will be converted to note: $noteData" }
-            val note = noteData.plus(mapOf("contactId" to contactId)).toNote()
+            val note = noteData.plus(mapOf("contactId" to contactId.toString())).toNote()
             ourLogger.info { "The following data will be inserted: $note" }
             dbClient.saveNote(note).right()
         }.getOrElse {
@@ -24,10 +23,11 @@ class NoteService(
             Failure("Note could not be saved").left()
         }
 
-    fun getNotes(contactId: String): Either<Failure, List<Note>> =
+    fun getNotes(contactId: Int): Either<Failure, List<Note>> =
         runCatching {
-            dbClient.getNotes(parseInt(contactId)).right()
+            dbClient.getNotes(contactId).right()
         }.getOrElse {
+            ourLogger.info { "Could not get notes for $contactId" }
             Failure("Could not get notes for $contactId").left()
         }
 }
