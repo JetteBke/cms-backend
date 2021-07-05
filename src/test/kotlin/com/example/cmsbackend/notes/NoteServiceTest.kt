@@ -40,11 +40,13 @@ internal class NoteServiceTest {
         every {
             noteDbClient.getNotes(any())
         } returns listOf(
-            Note(
-            contactId = 2,
-            text = "a testing note",
-            updatedAt = 123456,
-            createdAt = 1234563)
+            NoteWithId(
+                id = 1,
+                contactId = 2,
+                text = "a testing note",
+                updatedAt = 123456,
+                createdAt = 1234563
+            )
         )
 
         expectThat(noteService.getNotes(2))

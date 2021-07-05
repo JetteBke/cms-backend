@@ -33,7 +33,7 @@ class NoteService(
             Failure("Note could not be updated").left()
         }
 
-    fun getNotes(contactId: Int): Either<Failure, List<Note>> =
+    fun getNotes(contactId: Int): Either<Failure, List<NoteWithId>> =
         runCatching {
             dbClient.getNotes(contactId).right()
         }.getOrElse {

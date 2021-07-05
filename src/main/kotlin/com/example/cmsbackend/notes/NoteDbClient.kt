@@ -31,10 +31,11 @@ class NoteDbClient {
         }
     }
 
-    fun getNotes(contactId: Int): List<Note> {
+    fun getNotes(contactId: Int): List<NoteWithId> {
         return transaction {
             NoteTable.select { NoteTable.contactId eq contactId }.map {
-                Note(
+                NoteWithId(
+                    id = it[NoteTable.id],
                     contactId = it[NoteTable.contactId],
                     text = it[NoteTable.text].toString(),
                     createdAt = it[NoteTable.createdAt].toLong(),
