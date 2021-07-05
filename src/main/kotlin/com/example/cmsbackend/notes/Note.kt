@@ -10,8 +10,26 @@ data class Note(
     val contactId: Int
 )
 
+data class NoteWithId(
+    val id: Int,
+    val createdAt: Long,
+    val updatedAt: Long?,
+    val text: String,
+    val contactId: Int
+)
+
 fun Map<String, String>.toNote(): Note {
     return Note(
+        createdAt = this["createdAt"]!!.toLong(),
+        updatedAt = this["updatedAt"]?.toLong(),
+        text = this["text"]!!.toString(),
+        contactId = this["contactId"]!!.toInt()
+    )
+}
+
+fun Map<String, String>.toNoteWithId(): NoteWithId {
+    return NoteWithId(
+        id = this["id"]!!.toInt(),
         createdAt = this["createdAt"]!!.toLong(),
         updatedAt = this["updatedAt"]?.toLong(),
         text = this["text"]!!.toString(),

@@ -23,6 +23,16 @@ class NoteService(
             Failure("Note could not be saved").left()
         }
 
+    fun updateNote(noteData: Map<String, String>, contactId: Int): Either<Failure, Unit> =
+        runCatching {
+            val note = noteData.plus(mapOf("contactId" to contactId.toString())).toNoteWithId()
+            ourLogger.info { "The note with id ${note.id} will be updated" }
+            dbClient.updateNote(note).right()
+        }.getOrElse {
+            ourLogger.info { "The note could not be updated" }
+            Failure("Note could not be updated").left()
+        }
+
     fun getNotes(contactId: Int): Either<Failure, List<Note>> =
         runCatching {
             dbClient.getNotes(contactId).right()

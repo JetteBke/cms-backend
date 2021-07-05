@@ -6,10 +6,12 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.http.ResponseEntity.badRequest
 import org.springframework.http.ResponseEntity.created
+import org.springframework.http.ResponseEntity.noContent
 import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 
@@ -25,6 +27,17 @@ class NoteController(
     ): ResponseEntity<out Any> {
         return service.saveNote(noteData, contactId).fold(
             ifRight = { created(URI("")).build() },
+            ifLeft = { badRequest().build() }
+        )
+    }
+
+    @PutMapping("/cms/api/contact/{contactId}/notes/edit", produces = ["application/json"])
+    fun updateNote(
+        @RequestBody noteData: Map<String, String>,
+        @PathVariable contactId: Int
+    ): ResponseEntity<out Any> {
+        return service.updateNote(noteData, contactId).fold(
+            ifRight = { noContent().build() },
             ifLeft = { badRequest().build() }
         )
     }

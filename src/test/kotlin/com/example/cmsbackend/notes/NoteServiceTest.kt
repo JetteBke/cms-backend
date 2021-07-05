@@ -25,6 +25,17 @@ internal class NoteServiceTest {
     }
 
     @Test
+    fun `returns failure if note could not be updated`() {
+        every {
+            noteDbClient.updateNote(any())
+        } throws NullPointerException()
+
+        expectThat(noteService.updateNote(mapOf("text" to "a testing note"), 2))
+            .isLeft()
+            .isA<Failure>()
+    }
+
+    @Test
     fun `returns notes for a contact`() {
         every {
             noteDbClient.getNotes(any())
