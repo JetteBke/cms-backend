@@ -4,6 +4,9 @@ import com.google.gson.Gson
 import java.net.URI
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.http.ResponseEntity.badRequest
+import org.springframework.http.ResponseEntity.created
+import org.springframework.http.ResponseEntity.noContent
 import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -11,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
@@ -34,7 +36,7 @@ class ContactController(
     fun getContact(@PathVariable contactId: Int): ResponseEntity<Any?> {
         return service.getContact(contactId).fold(
             ifRight = { ResponseEntity(Gson().toJson(it), HttpStatus.OK) },
-            ifLeft = { ResponseEntity.badRequest().build() }
+            ifLeft = { badRequest().build() }
         )
     }
 
@@ -43,8 +45,8 @@ class ContactController(
         @RequestBody contact: ContactRequest
     ): ResponseEntity<out Any> {
         return service.saveContact(contact).fold(
-            ifRight = { ResponseEntity.created(URI("")).build() },
-            ifLeft = { ResponseEntity.badRequest().build() }
+            ifRight = { created(URI("")).build() },
+            ifLeft = { badRequest().build() }
         )
     }
 
@@ -53,16 +55,16 @@ class ContactController(
         @RequestBody contact: Contact
     ): ResponseEntity<out Any> {
         return service.updateContact(contact).fold(
-            ifRight = { ResponseEntity.noContent().build() },
-            ifLeft = { ResponseEntity.badRequest().build() }
+            ifRight = { noContent().build() },
+            ifLeft = { badRequest().build() }
         )
     }
 
     @DeleteMapping("/cms/api/contacts/{contactId}/delete", produces = ["application/json"])
     fun deleteContact(@PathVariable contactId: Int): ResponseEntity<out Any> {
        return service.deleteContact(contactId).fold(
-           ifRight = { ResponseEntity.noContent().build() },
-           ifLeft = { ResponseEntity.badRequest().build() }
+           ifRight = { noContent().build() },
+           ifLeft = { badRequest().build() }
        )
     }
 
