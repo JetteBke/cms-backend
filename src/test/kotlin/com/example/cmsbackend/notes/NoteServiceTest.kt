@@ -51,6 +51,6 @@ internal class NoteServiceTest {
 
         expectThat(noteService.getNotes(2))
             .isRight()
-            .isA<List<Note>>()
+            .isA<List<NoteRequest>>()
     }
 }

@@ -12,7 +12,7 @@ class ContactServiceTest {
     private val contactDbClient = mockk<ContactDbClient>()
     private val contactService = ContactService(contactDbClient)
     private val contactList = listOf(
-        Contact(
+        ContactRequest(
             lastName = "Mustermann",
             title = "Herr",
             firstName = "",
@@ -54,9 +54,18 @@ class ContactServiceTest {
 
         expectThat(
             contactService.saveContact(
-                mapOf(
-                    "lastName" to "Mustermann",
-                    "title" to "Herr"
+                ContactRequest(
+                    lastName = "Mustermann",
+                    firstName = null,
+                    title = "Herr",
+                    address = null,
+                    city = null,
+                    company = null,
+                    postalCode = null,
+                    emailOne = null,
+                    emailTwo = null,
+                    phoneOne = null,
+                    phoneTwo = null
                 )
             )
         )
@@ -73,10 +82,19 @@ class ContactServiceTest {
 
         expectThat(
             contactService.updateContact(
-                mapOf(
-                    "lastName" to "Mustermann",
-                    "title" to "Herr",
-                    "id" to "2"
+                Contact(
+                    lastName = "Mustermann",
+                    firstName = null,
+                    title = "Herr",
+                    id = 2,
+                    address = null,
+                    city = null,
+                    company = null,
+                    postalCode = null,
+                    emailOne = null,
+                    emailTwo = null,
+                    phoneOne = null,
+                    phoneTwo = null
                 )
             )
         )

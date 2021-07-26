@@ -40,9 +40,9 @@ class ContactController(
 
     @PostMapping("/cms/api/contacts/new", produces = ["application/json"])
     fun saveContact(
-        @RequestBody contactData: Map<String, String>
+        @RequestBody contact: ContactRequest
     ): ResponseEntity<out Any> {
-        return service.saveContact(contactData).fold(
+        return service.saveContact(contact).fold(
             ifRight = { ResponseEntity.created(URI("")).build() },
             ifLeft = { ResponseEntity.badRequest().build() }
         )
@@ -50,9 +50,9 @@ class ContactController(
 
     @PutMapping("/cms/api/contacts/edit", produces = ["application/json"])
     fun updateContact(
-        @RequestBody contactData: Map<String, String>
+        @RequestBody contact: Contact
     ): ResponseEntity<out Any> {
-        return service.updateContact(contactData).fold(
+        return service.updateContact(contact).fold(
             ifRight = { ResponseEntity.noContent().build() },
             ifLeft = { ResponseEntity.badRequest().build() }
         )

@@ -12,10 +12,10 @@ import org.springframework.stereotype.Component
 
 @Component
 class ContactDbClient {
-    fun getContacts(): List<ContactWithId> {
+    fun getContacts(): List<Contact> {
         return transaction {
             ContactTable.selectAll().map {
-                ContactWithId(
+                Contact(
                     id = it[ContactTable.id],
                     title = it[ContactTable.title],
                     firstName = it[ContactTable.firstName],
@@ -33,10 +33,10 @@ class ContactDbClient {
         }
     }
 
-    fun getContact(contactId: Int): ContactWithId {
+    fun getContact(contactId: Int): Contact {
         return transaction {
             ContactTable.select { ContactTable.id eq contactId }.map {
-                ContactWithId(
+                Contact(
                     id = it[ContactTable.id],
                     title = it[ContactTable.title],
                     firstName = it[ContactTable.firstName],
@@ -54,11 +54,11 @@ class ContactDbClient {
         }
     }
 
-    fun saveContact(contact: Contact) {
+    fun saveContact(contact: ContactRequest) {
         insertContact(contact)
     }
 
-    fun updateContact(contact: ContactWithId) {
+    fun updateContact(contact: Contact) {
         transaction {
             ContactTable.update({ ContactTable.id eq contact.id }) {
                 it[title] = contact.title
@@ -85,11 +85,11 @@ class ContactDbClient {
         }
     }
 
-    fun insertContactsFromFile(contactDataFromFile: List<Contact>) {
+    fun insertContactsFromFile(contactDataFromFile: List<ContactRequest>) {
         contactDataFromFile.map { insertContact(it) }
     }
 
-    private fun insertContact(contact: Contact) {
+    private fun insertContact(contact: ContactRequest) {
         transaction {
             ContactTable.insert {
                 it[title] = contact.title

@@ -3,7 +3,7 @@ package com.example.cmsbackend.notes
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-data class Note(
+data class NoteRequest(
     val createdAt: Long,
     val updatedAt: Long?,
     val text: String,
@@ -18,8 +18,8 @@ data class NoteWithId(
     val contactId: Int
 )
 
-fun Map<String, String>.toNote(): Note {
-    return Note(
+fun Map<String, String>.toNote(): NoteRequest {
+    return NoteRequest(
         createdAt = this["createdAt"]!!.toLong(),
         updatedAt = this["updatedAt"]?.toLong(),
         text = this["text"]!!.toString(),

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class NoteDbClient {
-    fun saveNote(note: Note) {
+    fun saveNote(note: NoteRequest) {
         transaction {
             NoteTable.insert {
                 it[createdAt] = note.createdAt

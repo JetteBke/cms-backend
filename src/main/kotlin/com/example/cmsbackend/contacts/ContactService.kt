@@ -16,32 +16,30 @@ private val ourLogger = KotlinLogging.logger {}
 class ContactService(
     val dbClient: ContactDbClient
 ) {
-    fun getContacts(): List<ContactWithId> {
+    fun getContacts(): List<Contact> {
         ourLogger.info { "Getting contacts" }
         return dbClient.getContacts()
     }
 
-    fun saveContact(contactData: Map<String, String>): Either<Failure, Unit> =
+    fun saveContact(contact: ContactRequest): Either<Failure, Unit> =
         runCatching {
-            val contact = contactData.toContact()
             ourLogger.info { "The following data will be inserted $contact" }
             dbClient.saveContact(contact).right()
         }.getOrElse {
-            ourLogger.info { "The following contact could not be saved: $contactData" }
+            ourLogger.info { "The following contact could not be saved: $contact" }
             Failure("Contact could not be saved").left()
         }
 
-    fun updateContact(contactData: Map<String, String>): Either<Failure, Unit> =
+    fun updateContact(contact: Contact): Either<Failure, Unit> =
         runCatching {
-            val contact = contactData.toContactWithId()
             ourLogger.info { "The contact with id ${contact.id} will be updated" }
             dbClient.updateContact(contact).right()
         }.getOrElse {
-            ourLogger.info { "The following contact could not be updated: $contactData" }
+            ourLogger.info { "The following contact could not be updated: $contact" }
             Failure("Contact could not be updated").left()
         }
 
-    fun getContact(contactId: Int): Either<Failure, ContactWithId> =
+    fun getContact(contactId: Int): Either<Failure, Contact> =
         runCatching {
             ourLogger.info { "Getting contact with id: $contactId" }
             return dbClient.getContact(contactId).right()
@@ -62,7 +60,7 @@ class ContactService(
     fun uploadFile(file: MultipartFile) {
         ourLogger.info { "Uploading file ${file.originalFilename}" }
         val inputStream: InputStream = BufferedInputStream(file.inputStream)
-        val contactData = loadDataFromCsv(inputStream).map { it.toContact() }
+        val contactData = loadDataFromCsv(inputStream).map { it.toContactRequest() }
         dbClient.insertContactsFromFile(contactData)
         ourLogger.info { "Inserted ${contactData.size} contacts" }
     }
