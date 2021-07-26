@@ -1,6 +1,7 @@
 package com.example.cmsbackend.notes
 
 import com.example.cmsbackend.db.NoteTable
+import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -42,6 +43,12 @@ class NoteDbClient {
                     updatedAt = it[NoteTable.updatedAt]?.toLong(),
                 )
             }
+        }
+    }
+
+    fun deleteNote(noteId: Int) {
+        transaction {
+            NoteTable.deleteWhere { NoteTable.id eq noteId }
         }
     }
 }

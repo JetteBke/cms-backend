@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity.badRequest
 import org.springframework.http.ResponseEntity.created
 import org.springframework.http.ResponseEntity.noContent
 import org.springframework.web.bind.annotation.CrossOrigin
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -46,6 +47,14 @@ class NoteController(
     fun getNotes(@PathVariable contactId: Int): ResponseEntity<Any?> {
         return service.getNotes(contactId).fold(
             ifRight = { ResponseEntity(Gson().toJson(it), HttpStatus.OK) },
+            ifLeft = { badRequest().build() }
+        )
+    }
+
+    @DeleteMapping("/cms/api/notes/{noteId}/delete", produces = ["application/json"])
+    fun deleteNote(@PathVariable noteId: Int): ResponseEntity<out Any> {
+        return service.deleteNote(noteId).fold(
+            ifRight = { noContent().build() },
             ifLeft = { badRequest().build() }
         )
     }

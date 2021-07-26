@@ -53,4 +53,18 @@ internal class NoteServiceTest {
             .isRight()
             .isA<List<NoteRequest>>()
     }
+
+    @Test
+    fun `returns failure if note could not be deleted`() {
+        every {
+            noteDbClient.deleteNote(any())
+
+        } throws NullPointerException()
+
+        expectThat(
+            noteService.deleteNote(1)
+        )
+            .isLeft()
+            .isA<Failure>()
+    }
 }

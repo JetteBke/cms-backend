@@ -40,5 +40,14 @@ class NoteService(
             ourLogger.info { "Could not get notes for $contactId" }
             Failure("Could not get notes for $contactId").left()
         }
+
+    fun deleteNote(noteId: Int): Either<Failure, Unit> =
+        runCatching {
+            ourLogger.info { "Removing note with id: $noteId" }
+            return dbClient.deleteNote(noteId).right()
+        }.getOrElse {
+            ourLogger.info { "Could not delete note with id $noteId" }
+            Failure("Could not delete note with id $noteId").left()
+        }
 }
 
