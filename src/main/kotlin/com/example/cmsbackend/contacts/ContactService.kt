@@ -12,9 +12,14 @@ import org.springframework.web.multipart.MultipartFile
 
 private val ourLogger = KotlinLogging.logger {}
 
+//class Config {
+//    @Bean
+//    fun service(dbClient: ContactDbClient): ContactService = ContactService(dbClient)
+//}
+
 @Service
 class ContactService(
-    val dbClient: ContactDbClient
+    private val dbClient: ContactDbClient
 ) {
     fun getContacts(): List<Contact> {
         ourLogger.info { "Getting contacts" }

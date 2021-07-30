@@ -1,16 +1,16 @@
 version: '3.9'
 
 services:
-#  corg-frontend:
-#    image: "cms-fe:2.0.3"
-#    ports:
-#      - "3000:3000" # localhost-port:container-port
+  corg-frontend:
+    image: "cms-fe:2.0.5"
+    ports:
+      - "3000:3000" # localhost-port:container-port
   db:
     image: 'postgres:13.2-alpine'
     environment:
-      - POSTGRES_DB=cms
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=<YOUR_DB_NAME>
+      - POSTGRES_USER=<YOUR_USERNAME>
+      - POSTGRES_PASSWORD=<YOUR_PASSWORD>
     ports:
       - "5432:5432"
     healthcheck:
@@ -21,14 +21,19 @@ services:
     restart: "always"
     volumes:
       - postgres-db:/var/lib/postgresql/data
-#  corg-backend:
-#    image: "cms-be:2.0.0"
-#    ports:
-#      - "8080:8080"
-#    depends_on:
-#      db:
-#        condition: service_healthy
-
+  corg-backend:
+    image: "cms-be:2.0.5"
+    environment:
+      - DB_PORT=5432
+      - DB_NAME=<YOUR_DB_NAME>
+      - DB_USERNAME=<YOUR_USERNAME>
+      - DB_PASSWORD=<YOUR_PASSWORD>
+      - DB_SERVICE=db
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
 volumes:
   postgres-db:
     driver: "local"
