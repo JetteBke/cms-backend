@@ -27,7 +27,8 @@ class ContactDbClient {
                     phoneOne = it[ContactTable.phoneOne],
                     phoneTwo = it[ContactTable.phoneTwo],
                     emailOne = it[ContactTable.emailOne],
-                    emailTwo = it[ContactTable.emailTwo]
+                    emailTwo = it[ContactTable.emailTwo],
+                    oldNote = it[ContactTable.oldNote]
                 )
             }
         }
@@ -48,7 +49,8 @@ class ContactDbClient {
                     phoneOne = it[ContactTable.phoneOne],
                     phoneTwo = it[ContactTable.phoneTwo],
                     emailOne = it[ContactTable.emailOne],
-                    emailTwo = it[ContactTable.emailTwo]
+                    emailTwo = it[ContactTable.emailTwo],
+                    oldNote = it[ContactTable.oldNote]
                 )
             }.first()
         }
@@ -72,6 +74,7 @@ class ContactDbClient {
                 it[phoneTwo] = contact.phoneTwo
                 it[emailOne] = contact.emailOne
                 it[emailTwo] = contact.emailTwo
+                it[oldNote] = contact.oldNote
             }
         }
     }
@@ -86,7 +89,7 @@ class ContactDbClient {
     }
 
     fun insertContactsFromFile(contactDataFromFile: List<ContactRequest>) {
-        contactDataFromFile.map { insertContact(it) }
+        contactDataFromFile.map { insertContactFromFile(it) }
     }
 
     private fun insertContact(contact: ContactRequest) {
@@ -103,6 +106,26 @@ class ContactDbClient {
                 it[phoneTwo] = contact.phoneTwo
                 it[emailOne] = contact.emailOne
                 it[emailTwo] = contact.emailTwo
+                it[oldNote] = contact.oldNote
+            }
+        }
+    }
+
+    private fun insertContactFromFile(contact: ContactRequest) {
+        transaction {
+            ContactTable.insert {
+                it[title] = contact.title
+                it[firstName] = contact.firstName
+                it[lastName] = contact.lastName
+                it[company] = contact.company
+                it[address] = contact.address
+                it[postalCode] = contact.postalCode
+                it[city] = contact.city
+                it[phoneOne] = contact.phoneOne
+                it[phoneTwo] = contact.phoneTwo
+                it[emailOne] = contact.emailOne
+                it[emailTwo] = contact.emailTwo
+                it[oldNote] = contact.oldNote
             }
         }
     }

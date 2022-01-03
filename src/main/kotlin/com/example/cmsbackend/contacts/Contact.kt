@@ -14,7 +14,8 @@ data class ContactRequest(
     val phoneOne: Int?,
     val phoneTwo: Int?,
     val emailOne: String?,
-    val emailTwo: String?
+    val emailTwo: String?,
+    val oldNote: String?
 )
 
 data class Contact(
@@ -29,7 +30,8 @@ data class Contact(
     val phoneOne: Int?,
     val phoneTwo: Int?,
     val emailOne: String?,
-    val emailTwo: String?
+    val emailTwo: String?,
+    val oldNote: String?
 )
 
 fun Map<String, String>.toContactRequest(): ContactRequest {
@@ -44,6 +46,7 @@ fun Map<String, String>.toContactRequest(): ContactRequest {
         phoneOne = this["phoneOne"]?.toInt(),
         phoneTwo = this["phoneTwo"]?.toInt(),
         emailOne = this["emailOne"],
-        emailTwo = this["emailTwo"]
+        emailTwo = this["emailTwo"],
+        oldNote = this["oldNote"]
     )
 }

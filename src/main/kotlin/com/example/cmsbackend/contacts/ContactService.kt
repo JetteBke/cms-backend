@@ -65,6 +65,7 @@ class ContactService(
     fun uploadFile(file: MultipartFile) {
         ourLogger.info { "Uploading file ${file.originalFilename}" }
         val inputStream: InputStream = BufferedInputStream(file.inputStream)
+        ourLogger.info { "Created input stream" }
         val contactData = loadDataFromCsv(inputStream).map { it.toContactRequest() }
         dbClient.insertContactsFromFile(contactData)
         ourLogger.info { "Inserted ${contactData.size} contacts" }

@@ -15,6 +15,7 @@ object ContactTable : Table() {
     val phoneTwo = integer("phoneTwo").nullable()
     val emailOne = varchar("emailOne", 50).nullable()
     val emailTwo = varchar("emailTwo", 50).nullable()
+    val oldNote = text("oldNote").nullable()
 
     override val primaryKey = PrimaryKey(id, name = "contactId") // name is optional here
 }
