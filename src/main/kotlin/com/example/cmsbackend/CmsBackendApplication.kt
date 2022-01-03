@@ -11,9 +11,6 @@ import org.jetbrains.exposed.sql.transactions.transaction
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
-import org.springframework.context.annotation.ComponentScan
-import org.springframework.context.annotation.Configuration
-import org.springframework.context.annotation.PropertySource
 
 @SpringBootApplication(scanBasePackages = ["com.example.cmsbackend"])
 class CmsBackendApplication {
@@ -32,8 +29,8 @@ class CmsBackendApplication {
 
         transaction {
             addLogger(StdOutSqlLogger)
-            SchemaUtils.create(ContactTable)
             SchemaUtils.create(NoteTable)
+            SchemaUtils.createMissingTablesAndColumns(ContactTable)
         }
     }
 }
