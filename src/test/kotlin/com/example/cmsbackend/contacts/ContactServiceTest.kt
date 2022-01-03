@@ -24,6 +24,7 @@ class ContactServiceTest {
             phoneTwo = 123456789,
             emailOne = "",
             emailTwo = "",
+            oldNote = ""
         )
     )
 
@@ -65,7 +66,8 @@ class ContactServiceTest {
                     emailOne = null,
                     emailTwo = null,
                     phoneOne = null,
-                    phoneTwo = null
+                    phoneTwo = null,
+                    oldNote = null
                 )
             )
         )
@@ -94,7 +96,8 @@ class ContactServiceTest {
                     emailOne = null,
                     emailTwo = null,
                     phoneOne = null,
-                    phoneTwo = null
+                    phoneTwo = null,
+                    oldNote = null
                 )
             )
         )
