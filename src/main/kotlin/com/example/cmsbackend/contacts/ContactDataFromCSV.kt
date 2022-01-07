@@ -4,7 +4,7 @@ import java.io.InputStream
 
 fun loadDataFromCsv(stream: InputStream): List<Map<String, String>> {
     val reader = csvReader {
-        delimiter = ','
+        delimiter = ';'
     }
     return reader.readAllWithHeader(stream)
 }
