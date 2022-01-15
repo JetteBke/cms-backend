@@ -18,10 +18,10 @@ class ContactServiceTest {
             firstName = "",
             company = "",
             address = "",
-            postalCode = 12345,
+            postalCode = "12345",
             city = "",
-            phoneOne = 123456789,
-            phoneTwo = 123456789,
+            phoneOne = "1234-56789",
+            phoneTwo = "12345-6789",
             emailOne = "",
             emailTwo = "",
             oldNote = ""
