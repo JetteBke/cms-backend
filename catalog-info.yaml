@@ -1,8 +1,14 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: "cms"
+  name: cms
+  links:
+    - url: https://dashboard.example.com
+      title: My Dashboard
+      icon: dashboard
+  annotations:
+    github.com/project-slug: JetteBke/contact-organizer-backend      
 spec:
-  type: website
+  type: service
   owner: user:guest
   lifecycle: experimental
