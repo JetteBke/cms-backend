@@ -2,6 +2,7 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: "cms"
+  github.com/project-slug: 'JetteBke/contact-organizer-backend'
 spec:
   type: service
   owner: user:guest
